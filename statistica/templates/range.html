@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        
+    
+    
+    <p>Hello</p>
+    <form action="/calculate_range/" method="POST">
+        <div class="form-group">
+        <label for="usr">Input data seperated by '-' </label>
+        <input type="text" class="form-control" name="data">
+        </div>
+        {% csrf_token %}
+    </form>
+    
+    </body>
+    
+</html>

@@ -1,0 +1,145 @@
+{% load tags %}
+<html>
+    <head>
+        <script src="http://canvasjs.com/assets/script/canvasjs.min.js"
+        <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+         
+
+
+
+    </head>
+    <body>
+        
+        {% if data %}        
+        <table>
+            {% for key, value in  data.items%}
+                <tr>
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                </tr>
+            {% endfor %}
+            
+        </table>
+        {% else %}
+            <table class="table table-striped">
+                <tr>
+                    {% for name in coloumn_name %}
+                        <td style="font-weight:bold">{{name}}</td>
+                    {% endfor %}
+                </tr>
+                {% for row in data_type %}
+                    <tr>
+                        {% for coloumn in row %}
+                            <td>{{coloumn|round_float}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            
+        {% endif %}
+        
+
+<script>
+            window.onload = function () {
+	var all_data = {{ data_type }};
+    var fi_range = [];
+    var fi_n_range = [];
+    var Fi_n_range = [];
+    var x_name = [];
+    {{data_type}};
+    all_data.forEach(function(item){
+        console.log(item);
+        fi_range.push(item[1]);
+        fi_n_range.push(item[3]);
+        Fi_n_range.push(item[4]);
+        x_name.push(item[0][0] + "-" + item[0][1]);
+    });
+    console.log(fi_range);
+    console.log(fi_n_range);
+    console.log(Fi_n_range);
+    console.log(x_name);
+
+
+    var trace1 = {
+        x: x_name,
+        y: fi_range,
+        mode: 'markers',
+        type: 'bar',
+        name: 'fi axis',
+        // text: ['Apples', 'Pears', 'Apples', 'Pears'],
+    };
+
+    var trace2 = {
+        x: x_name,
+        y: fi_n_range,
+        mode: 'markers',
+        type: 'bar',
+        name: 'fi/n axis',
+        // text: ['Apples', 'Pears', 'Apples', 'Pears'],
+    };
+
+    var trace3 = {
+        x: x_name,
+        y: Fi_n_range,
+        mode: 'markers',
+        type: 'bar',
+        name: 'Fi/n axis',
+        // text: ['Apples', 'Pears', 'Apples', 'Pears'],
+    };
+    var data_fi = [ trace1 ];
+    var data_fi_n = [ trace2 ];
+    var data_Fi_n = [ trace3 ];
+
+    var layout1 = {
+    xaxis: {
+        type: 'category',
+        title: 'Data',
+    },
+    yaxis: {
+        range: [Math.min(fi_range), Math.max(fi_range)],
+        title: 'fi'
+    },
+    // title:'Inventory'
+    };
+    var layout2 = {
+    xaxis: {
+        type: 'category',
+        title: 'Data',
+    },
+    yaxis: {
+        range: [Math.min(fi_n_range), Math.max(fi_n_range)],
+        title: 'fi/n'
+    },
+    // title:'Inventory'
+    };
+    var layout3 = {
+    xaxis: {
+        type: 'category',
+        title: 'Data',
+    },
+    yaxis: {
+        range: [Math.min(Fi_n_range), Math.max(Fi_n_range)],
+        title: 'Fi/n'
+    },
+    // title:'Inventory'
+    };
+
+    Plotly.plot('fi', data_fi, layout1);
+    Plotly.plot('fi/n', data_fi_n, layout2);
+    Plotly.plot('Fi/n', data_Fi_n, layout3);
+}</script>
+<div id="fi" style="width:50%;height:300px;float:left"></div>
+<div id="fi/n" style="width:50%;height:300px;float:left"></div>
+<div id="Fi/n" style="width:50%;height:300px;float:left"></div>
+        
+        
+
+            
+
+        
+    </body>
+</html>
+
