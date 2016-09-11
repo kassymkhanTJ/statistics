@@ -2,6 +2,7 @@ import numpy
 import math
 from collections import Counter
 from django.shortcuts import render
+from socket import gethostname
 
 # Create your views here.
 def main(reqest):
@@ -104,5 +105,5 @@ def calculate_range(request):
     #     table.append(data[i])
 
 
-
-    return render(request, 'result.html', {'data_type':data, 'coloumn_name':coloumn_name, 'data_range':data_range})
+    host = gethostname()
+    return render(request, 'result.html', {'data_type':data, 'coloumn_name':coloumn_name, 'data_range':data_range, 'host':host},)

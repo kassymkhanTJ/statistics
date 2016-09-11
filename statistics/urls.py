@@ -19,8 +19,6 @@ from statistica import views as s_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^range/', s_views.range),
-    url(r'^calculate/', s_views.calculate),
     url(r'^calculate_range/', s_views.calculate_range),
-    url(r'^', s_views.main),
+    url(r'^', s_views.range),
 ]

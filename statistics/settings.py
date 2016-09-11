@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from socket import gethostname
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ptgh)q)vz5d43!e$g1+!_wh2z0uah0-1ei07wkru@9ju(-1k-^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if gethostname() == "Kassymkhans-MacBook-Pro.local": 
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kassymkhan.pythonanywhere.com']
 
 
 # Application definition
