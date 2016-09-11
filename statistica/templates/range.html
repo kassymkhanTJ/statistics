@@ -6,10 +6,11 @@
         
     
     
-    <p>Hello</p>
+    <h1>Hello</h1>
     <form action="/calculate_range/" method="POST">
         <div class="form-group">
-        <label for="usr">Input data seperated by '-' </label>
+        <label for="usr">Input data seperated by '-' (range-data)</label>
+        <label for="usr">Ex: 120-130-5</label>
         <input type="text" class="form-control" name="data">
         </div>
         {% csrf_token %}

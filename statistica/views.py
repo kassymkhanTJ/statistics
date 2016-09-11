@@ -2,7 +2,7 @@ import numpy
 import math
 from collections import Counter
 from django.shortcuts import render
-from socket import gethostname
+
 
 # Create your views here.
 def main(reqest):
@@ -87,23 +87,4 @@ def calculate_range(request):
 
     data_range = {'start':data[0][0][0], 'end':data[-1][0][0]}
      
-
-    
-    # for i in xrange(n):
-    #     if i==0:
-    #         data[i]["Fi"] = data[i]["fi"]
-            
-    #     else:    
-    #         data[i]['Fi'] = data[i-1]['Fi'] + data[i]['fi']
-    #     data[i]['fi_N'] = data[i]['fi']/float(N)
-    #     data[i]['Fi_N'] = data[i]['Fi']/float(N)
-    #     data[i]['mi'] = data[i]['data_type'][0] + (data[i]['data_type'][1] - data[i]['data_type'][0])/2
-    #     data[i]['miMultfi'] = data[i]['mi'] * data[i]['fi']
-    #     data[i]['mi_squaredMultfi'] = data[i]['mi'] **2 * data[i]['fi']
-    # table = []
-    # for i in xrange(n):
-    #     table.append(data[i])
-
-
-    host = gethostname()
-    return render(request, 'result.html', {'data_type':data, 'coloumn_name':coloumn_name, 'data_range':data_range, 'host':host},)
+    return render(request, 'result.html', {'data_type':data, 'coloumn_name':coloumn_name, 'data_range':data_range},)
