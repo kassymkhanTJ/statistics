@@ -30,7 +30,7 @@ if gethostname() == "Kassymkhans-MacBook-Pro.local":
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['kassymkhan.pythonanywhere.com']
+ALLOWED_HOSTS = ['statistics.pythonanywhere.com']
 
 
 # Application definition
