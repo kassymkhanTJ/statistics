@@ -1,17 +1,27 @@
 {% load tags %}
+
+
 <html>
     <head>
-        <script src="http://canvasjs.com/assets/script/canvasjs.min.js"
-        <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
-         
-
-
+        <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
     </head>
     <body>
+
+
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']]
+            }
+        });
+        </script>
+            
+
+            
         
         {% if data %}        
         <table>
@@ -27,7 +37,7 @@
             <table class="table table-striped">
                 <tr>
                     {% for name in coloumn_name %}
-                        <td style="font-weight:bold">{{name}}</td>
+                        <td style="font-weight:bold;font-size:120%">${{name}}$</td>
                     {% endfor %}
                 </tr>
                 {% for row in data_type %}
@@ -43,13 +53,13 @@
         
 
 <script>
-            window.onload = function () {
+    window.onload = function () {
 	var all_data = {{ data_type }};
     var fi_range = [];
     var fi_n_range = [];
     var Fi_n_range = [];
     var x_name = [];
-    {{data_type}};
+    
     all_data.forEach(function(item){
         console.log(item);
         fi_range.push(item[1]);
@@ -131,6 +141,65 @@
     Plotly.plot('fi/n', data_fi_n, layout2);
     Plotly.plot('Fi/n', data_Fi_n, layout3);
 }</script>
+
+<p style="font-size:150%">
+    
+            
+            $$mean ={
+                \sum\limits_{i=1}^n m_i*f_i \over N
+            }=
+            {{
+                
+                {% for i in data_type %}
+                    {% if forloop.counter0 %}
+                        +
+                    {% endif %}
+                    {{i.6}}
+                {% endfor %}
+                \over
+                {{N}} }
+                = 
+                {{mean}}
+
+            }$$
+            </p>
+            <p style="font-size:150%">
+                $$ median = L_M + {{n\over2}-F_{M-1}\over f_M}C = 
+                {{L_M}} + { { {{N}} \over 2} - {{FM_1}}\over {{fM}} } {{C}} = 
+                {{median}}
+                $$
+
+                $$ modal = 
+                {% for i in mode %}
+                    {{i}}
+                {% endfor %} 
+                $$
+
+                $$
+                    \sigma^2 = { \sum\limits_{i=1}^k f_i*m_i^2 \over N } - \mu^2
+                    =
+                     { 
+                     {% for i in data_type %}
+                        {% if forloop.counter0 %}
+                            +
+                        {% endif %}
+                        {{i.7}}
+                    {% endfor %}
+                      \over {{N}} } - \ {{mean}}^2
+                    =
+                    {{standart_deviation}} 
+                $$
+
+                $$
+                \sigma = \sqrt{\sigma^2} = \sqrt{ {{standart_deviation}} } = {{sqrt_sum_fimisquared}}  
+                $$
+            </p>
+            
+                
+            
+            
+
+
 <div id="fi" style="width:50%;height:300px;float:left"></div>
 <div id="fi/n" style="width:50%;height:300px;float:left"></div>
 <div id="Fi/n" style="width:50%;height:300px;float:left"></div>

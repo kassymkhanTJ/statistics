@@ -53,13 +53,13 @@ def calculate_range(request):
     """
     coloumn_name = [
         'Data',
-        'fi',
-        'Fi',
-        'fi/N',
-        'Fi/N',
-        'mi',
-        'mi*fi',
-        'mi^2*fi',
+        'f_i',
+        'F_i',
+        'f_i\\over N',
+        'F_i\\over N',
+        'm_i',
+        'm_i*f_i',
+        'm_i^2*f_i',
     ]
     data = []
     data_reversed = {}
@@ -86,5 +86,45 @@ def calculate_range(request):
         data[i].append(data[i][5]**2 * data[i][1])
 
     data_range = {'start':data[0][0][0], 'end':data[-1][0][0]}
-     
-    return render(request, 'result.html', {'data_type':data, 'coloumn_name':coloumn_name, 'data_range':data_range},)
+    max_fi = max([i[1] for i in data])
+    mode = [] 
+    for j,i in enumerate(data):
+        if i[2] <= (float(N/2)) <= data[j+1][2]:
+            LM = data[j+1][0][0]
+            M = j + 1
+        if 0<= abs(i[1] - max_fi) < 0.00001:
+            mode.append(i[0])
+            
+        
+    
+    mean = sum([i[6] for i in data])/N
+
+
+    FM_1 = data[M-1][2]
+    fM = data[M][1]
+    C = data[0][0][1] - data[0][0][0]
+    median = LM + (N/2 - FM_1)/fM*C
+
+    sum_fimisquared = sum([i[7] for i in data])
+    standart_deviation = sum_fimisquared/N - mean**2
+    
+
+    return render(request, 'result.html', {
+        'data_type':data, 
+        'coloumn_name':coloumn_name, 
+        'data_range':data_range,
+        'N':N,
+        'L_M':LM,
+        'FM_1':FM_1,
+        'fM':fM,
+        'C':C,
+        'mean':mean,
+        'M':M,
+        'median':median,
+        'mode':mode,
+        'standart_deviation':standart_deviation,
+        'sum_fimisquared':sum_fimisquared,
+        'sqrt_sum_fimisquared':math.sqrt(standart_deviation),
+        },
+        
+    )

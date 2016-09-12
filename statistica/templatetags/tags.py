@@ -12,3 +12,7 @@ def round_float(value):
 @register.filter(name='to_json')
 def to_json(value):
     return json.load(value)
+
+@register.filter(name='make_range')
+def make_range(value):
+    return ['1','2','3','4','5']
