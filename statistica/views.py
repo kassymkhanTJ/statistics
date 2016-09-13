@@ -4,6 +4,7 @@ from collections import Counter
 from django.shortcuts import render
 
 
+
 # Create your views here.
 def main(reqest):
     return render(reqest, 'index.html')
@@ -106,7 +107,16 @@ def calculate_range(request):
     median = LM + (N/2 - FM_1)/fM*C
 
     sum_fimisquared = sum([i[7] for i in data])
-    standart_deviation = sum_fimisquared/N - mean**2
+    mu = sum([i[6] for i in data])/N
+    standart_deviation = 0
+    variance = 0
+    x = mu
+    for i in data:
+        standart_deviation += (i[1]*((i[5]-mu)**2))
+        
+    standart_deviation /= N
+    variance = (sum_fimisquared - N*(x**2))/(N-1)
+    
     
 
     return render(request, 'result.html', {
@@ -125,6 +135,9 @@ def calculate_range(request):
         'standart_deviation':standart_deviation,
         'sum_fimisquared':sum_fimisquared,
         'sqrt_sum_fimisquared':math.sqrt(standart_deviation),
+        'variance':variance,
+        'x':x,
+        'sqrt_variance':math.sqrt(variance),
         },
         
     )
