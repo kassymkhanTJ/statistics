@@ -88,13 +88,32 @@ def calculate_range(request):
 
     data_range = {'start':data[0][0][0], 'end':data[-1][0][0]}
     max_fi = max([i[1] for i in data])
-    mode = [] 
+    mode = []
+    Q1_st = int((N+1)/4)
+    Q1_nd = int(Q1_st + 1)
+    Q3_st = int((N)/4*3)
+    Q3_nd = int(Q3_st + 1)
     for j,i in enumerate(data):
-        if i[2] <= (float(N/2)) <= data[j+1][2]:
+        if (float(N/2)) < i[2]:
+            LM = data[j][0][0]
+            M = j
+        elif i[2] <= (float(N/2)) <= data[j+1][2]:
             LM = data[j+1][0][0]
             M = j + 1
         if 0<= abs(i[1] - max_fi) < 0.00001:
             mode.append(i[0])
+        
+        
+
+    # st_observation = L_st + (j_st-1.0/2)*(U_st-L_st)/f_st
+    # nd_observation = L_nd + (j_nd-1.0/2)*(U_nd-L_nd)/f_nd
+    # Q1 = st_observation + ((N+1)%4)/4*(nd_observation - st_observation)
+
+    # st_observation3 = L3_st + (j3_st-1.0/2)*(U3_st-L3_st)/f3_st
+    # nd_observation3 = L3_nd + (j3_nd-1.0/2)*(U3_nd-L3_nd)/f3_nd
+    # Q3 = st_observation3 + ((N)*3%4)/4*(nd_observation3 - st_observation3)
+
+    
             
         
     
@@ -116,6 +135,9 @@ def calculate_range(request):
         
     standart_deviation /= N
     variance = (sum_fimisquared - N*(x**2))/(N-1)
+
+    # Q1_1 = (N+1)/4
+    # Q3 = input_data[(n+1)*3/4 - 1] + (((n+1)*3%4)/4.0)*(input_data[(n+1)*3/4 ] - input_data[(n+1)*3/4 - 1])
     
     
 
@@ -138,6 +160,14 @@ def calculate_range(request):
         'variance':variance,
         'x':x,
         'sqrt_variance':math.sqrt(variance),
+        # 'st_observation':st_observation3,
+        # 'nd_observation':nd_observation3,
+        # 'j_st':j3_st,
+        # 'L_st':L3_st,
+        # 'U_st':U3_st,
+        # 'f_st':f3_st,
+        # 'Q1':Q3,
+        # 'IQR':[Q3 - Q1, Q3, Q1],
         },
         
     )
