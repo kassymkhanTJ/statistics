@@ -51,6 +51,7 @@ def calculate_range(request):
     mi: 5
     miMultfi: 6
     mi_squaredMultfi: 7
+    mi_squared: 8
     """
     coloumn_name = [
         'Data',
@@ -61,6 +62,7 @@ def calculate_range(request):
         'm_i',
         'm_i*f_i',
         'm_i^2*f_i',
+        'm_i^2',
     ]
     data = []
     data_reversed = {}
@@ -85,6 +87,7 @@ def calculate_range(request):
         data[i].append(data[i][0][0] + (data[i][0][1] - data[i][0][0])/2)
         data[i].append(data[i][5] * data[i][1])
         data[i].append(data[i][5]**2 * data[i][1])
+        data[i].append(data[i][5]**2)
 
     data_range = {'start':data[0][0][0], 'end':data[-1][0][0]}
     max_fi = max([i[1] for i in data])
