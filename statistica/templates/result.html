@@ -1,5 +1,5 @@
 {% load tags %}
-{{Q1_1}}
+
 
 <html>
     <head>
@@ -158,8 +158,8 @@
 }</script>
 
 <p style="font-size:150%">
-    
-            
+            <hr>
+            <!--MEAN-->
             $$mean ={
                 \sum\limits_{i=1}^n m_i*f_i \over N
             }=
@@ -179,17 +179,20 @@
             }$$
             </p>
             <p style="font-size:150%">
+                <!--MEDIAN-->
                 $$ median = L_M + {{n\over2}-F_{M-1}\over f_M}C = 
                 {{L_M}} + { { {{N}} \over 2} - {{FM_1}}\over {{fM}} } {{C}} = 
                 {{median}}
                 $$
-
+                <hr>
+                <!--MODAL-->
                 $$ modal = 
                 {% for i in mode %}
                     {{i}}
                 {% endfor %} 
                 $$
-
+                <hr>
+                <!--STANDART DEVIATION-->
                 $$
                     \sigma^2 = { \sum\limits_{i=1}^k f_i*m_i^2 \over N } - \mu^2
                     =
@@ -208,7 +211,8 @@
                 $$
                 \sigma = \sqrt{\sigma^2} = \sqrt{ {{standart_deviation}} } = {{sqrt_sum_fimisquared}}  
                 $$
-
+                <hr>
+                <!--VARIANCE-->
                 $$
                 s^2 = {1\over n-1}[{ \sum\limits_{i=1}^k f_i*m_i^2 - n*x^2 }] =
                 {1\over {{N}} -1}[{ {{sum_fimisquared}} - {{N}}*{{x}}^2 }] 
@@ -223,28 +227,48 @@
                 =
                 {{sqrt_variance|round_float}}
                 $$
-
-
+                <hr>
+                <!--Q1-->
                 $$
                 L + (j-{1\over 2 })*({U-L\over f})
                 $$
+                <hr>
+                
                 $$
                 Q1 = [{n+1\over 4}]^{th} = [{ {{N}} + 1 \over 4 }] = {{Q1_1.0}}^{th} + { {{Q1_1.6}}\over 4 }[{{Q1_2.0}}^{th} - {{Q1_1.0}}^{th}]
                 $$
                 $$
+                j = {{Q1_1.1}} f = {{Q1_1.2}}, L = {{Q1_1.3}}, U = {{Q1_1.4}}
+                $$
+                $$
                 {{Q1_1.0}}^{th} = {{Q1_1.3}} + ( {{Q1_1.1}} - {1\over2})*({ {{Q1_1.4}} - {{Q1_1.3}} \over {{Q1_1.2}} }) = {{Q1_1.5|round_float}}
                 $$
+                <hr>
+                
                 $$
                 {{Q1_2.0}}^{th} = {{Q1_2.3}} + ( {{Q1_2.1}} - {1\over2})*({ {{Q1_2.4}} - {{Q1_2.3}} \over {{Q1_2.2}} }) = {{Q1_2.5|round_float}}
                 $$
                 $$
+                j = {{Q1_2.1}} f = {{Q1_2.2}}, L = {{Q1_2.3}}, U = {{Q1_2.4}}
+                $$
+                $$
                 Q1 = {{Q1_1.5|round_float}} + { {{Q1_1.6}}\over 4 }[{{Q1_2.5|round_float}} - {{Q1_1.5|round_float}}] = {{Q1}}
                 $$
+                <hr>
+                
                 $$
                 Q3 = [{3(n+1)\over 4}]^{th} = [{ 3*{{N}} + 1 \over 4 }] = {{Q3_1.0}}^{th} + { {{Q3_1.6}}\over 4 }[{{Q3_2.0}}^{th} - {{Q3_1.0}}^{th}]
                 $$
                 $$
+                j = {{Q3_1.1}}, f = {{Q3_1.2}}, L = {{Q3_1.3}}, U = {{Q3_1.4}}
+                $$
+                $$
                 {{Q3_1.0}}^{th} = {{Q3_1.3}} + ( {{Q3_1.1}} - {1\over2})*({ {{Q3_1.4}} - {{Q3_1.3}} \over {{Q3_1.2}} }) = {{Q3_1.5|round_float}}
+                $$
+                <hr>
+
+                $$
+                j = {{Q3_2.1}}, f = {{Q3_2.2}}, L = {{Q3_2.3}}, U = {{Q3_2.4}}
                 $$
                 $$
                 {{Q3_2.0}}^{th} = {{Q3_2.3}} + ( {{Q3_2.1}} - {1\over2})*({ {{Q3_2.4}} - {{Q3_2.3}} \over {{Q3_2.2}} }) = {{Q3_2.5|round_float}}
@@ -252,14 +276,16 @@
                 $$
                 Q3 = {{Q3_1.5|round_float}} + { {{Q3_1.6}}\over 4 }[{{Q3_2.5|round_float}} - {{Q3_1.5|round_float}}] = {{Q3}} 
                 $$
+                <hr>
                 $$
-                IQR = Q3 - Q1 = {{IQR}}
+                
+                IQR = Q3 - Q1 = {{Q3}} - {{Q1}} = {{IQR}}
                 $$
             </p>
             
                 
             
-            
+            <hr>
 
 <div style="display:inline">
     <div id="fi" style="width:50%;height:300px;float:left"></div>
