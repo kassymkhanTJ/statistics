@@ -64,6 +64,7 @@ def calculate_range(request):
         'm_i^2*f_i',
         'm_i^2',
     ]
+    
     data = []
     data_reversed = {}
     input_data = request.POST['data'].strip().split(" ")
@@ -91,14 +92,74 @@ def calculate_range(request):
 
     data_range = {'start':data[0][0][0], 'end':data[-1][0][0]}
     max_fi = max([i[1] for i in data])
-    mode = [] 
+    mode = []
+
+    
     for j,i in enumerate(data):
         if i[2] <= (float(N/2)) <= data[j+1][2]:
             LM = data[j+1][0][0]
             M = j + 1
         if 0<= abs(i[1] - max_fi) < 0.00001:
             mode.append(i[0])
-            
+
+    # Q1
+    Q1_1 = int((N+1)/4)
+    Q1_2 = Q1_1 + 1
+    rest1 = (N+1)%4
+    # Q3
+    Q3_1 = int((N+1)*3/4)
+    Q3_2 = Q3_1 + 1
+    rest2 = (N+1)*3%4
+    # Q1
+    for j, i in enumerate(data):
+        if Q1_1 <= i[2]:
+            if j == 0:
+                j11 = Q1_1    
+            else:
+                j11 = Q1_1 - data[j-1][2]
+            L11 = i[0][0]
+            U11 = i[0][1]
+            f11 = i[1]
+            break
+    for j, i in enumerate(data):
+        if Q1_2 <= i[2]:
+            if j == 0:
+                j12 = Q1_2    
+            else:
+                j12 = Q1_2 - data[j-1][2]
+            L12 = i[0][0]
+            U12 = i[0][1]
+            f12 = i[1]
+            break
+    # Q3
+    for j, i in enumerate(data):
+        if Q3_1 <= i[2]:
+            if j == 0:
+                j31 = Q3_1    
+            else:
+                j31 = Q3_1 - data[j-1][2]
+            L31 = i[0][0]
+            U31 = i[0][1]
+            f31 = i[1]
+            break
+    for j, i in enumerate(data):
+        if Q3_2 <= i[2]:
+            if j == 0:
+                j32 = Q3_2    
+            else:
+                j32 = Q3_2 - data[j-1][2]
+            L32 = i[0][0]
+            U32 = i[0][1]
+            f32 = i[1]
+            break
+    
+    Q1_1_fin = L11 + (j11-1/2.0) *(U11-L11)/f11
+    Q1_2_fin = L12 + (j12-1/2.0) *(U12-L12)/f12
+    Q1 = Q1_1 + rest1/4*(Q1_2 - Q1_1)
+
+    Q3_1_fin = L31 + (j31-1/2.0) *(U31-L31)/f31
+    Q3_2_fin = L32 + (j32-1/2.0) *(U32-L32)/f32
+    Q3 = Q3_1 + rest2/4*(Q3_2 - Q3_1)
         
     
     mean = sum([i[6] for i in data])/N
@@ -114,8 +175,14 @@ def calculate_range(request):
     standart_deviation = 0
     variance = 0
     x = mu
+
     for i in data:
         standart_deviation += (i[1]*((i[5]-mu)**2))
+        
+
+
+
+
         
     standart_deviation /= N
     variance = (sum_fimisquared - N*(x**2))/(N-1)
@@ -141,6 +208,14 @@ def calculate_range(request):
         'variance':variance,
         'x':x,
         'sqrt_variance':math.sqrt(variance),
+        'Q1_1':[Q1_1, j11, f11, L11, U11, Q1_1_fin, rest1],
+        'Q1_2':[Q1_2, j12, f12, L12, U12, Q1_2_fin,],
+        'Q3_1':[Q3_1, j31, f31, L31, U31, Q3_1_fin, rest2],
+        'Q3_2':[Q3_2, j32, f32, L32, U32, Q3_2_fin,],
+        'Q1':Q1,
+        'Q3':Q3,
+        'IQR':Q3 - Q1,
+        
         },
         
     )

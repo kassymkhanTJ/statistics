@@ -1,5 +1,5 @@
 {% load tags %}
-
+{{Q1_1}}
 
 <html>
     <head>
@@ -49,7 +49,21 @@
                     </tr>
                 {% endfor %}
             </table>
-            
+
+            <table class="table table-striped">
+                <tr>
+                    {% for name in coloumn2_name %}
+                        <td style="font-weight:bold;font-size:120%">${{name}}$</td>
+                    {% endfor %}
+                </tr>
+                {% for row in data2 %}
+                    <tr>
+                        {% for coloumn in row %}
+                            <td>{{coloumn|round_float}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
         {% endif %}
         
 
@@ -199,17 +213,48 @@
                 s^2 = {1\over n-1}[{ \sum\limits_{i=1}^k f_i*m_i^2 - n*x^2 }] =
                 {1\over {{N}} -1}[{ {{sum_fimisquared}} - {{N}}*{{x}}^2 }] 
                 =
-                {{variance}}
+                {{variance|round_float}}
                 $$
 
                 $$
                 s = \sqrt{s^2}
                 =
-                \sqrt{ {{variance}} }
+                \sqrt{ {{variance|round_float}} }
                 =
-                {{sqrt_variance}}
+                {{sqrt_variance|round_float}}
                 $$
 
+
+                $$
+                L + (j-{1\over 2 })*({U-L\over f})
+                $$
+                $$
+                Q1 = [{n+1\over 4}]^{th} = [{ {{N}} + 1 \over 4 }] = {{Q1_1.0}}^{th} + { {{Q1_1.6}}\over 4 }[{{Q1_2.0}}^{th} - {{Q1_1.0}}^{th}]
+                $$
+                $$
+                {{Q1_1.0}}^{th} = {{Q1_1.3}} + ( {{Q1_1.1}} - {1\over2})*({ {{Q1_1.4}} - {{Q1_1.3}} \over {{Q1_1.2}} }) = {{Q1_1.5|round_float}}
+                $$
+                $$
+                {{Q1_2.0}}^{th} = {{Q1_2.3}} + ( {{Q1_2.1}} - {1\over2})*({ {{Q1_2.4}} - {{Q1_2.3}} \over {{Q1_2.2}} }) = {{Q1_2.5|round_float}}
+                $$
+                $$
+                Q1 = {{Q1_1.5|round_float}} + { {{Q1_1.6}}\over 4 }[{{Q1_2.5|round_float}} - {{Q1_1.5|round_float}}] = {{Q1}}
+                $$
+                $$
+                Q3 = [{3(n+1)\over 4}]^{th} = [{ 3*{{N}} + 1 \over 4 }] = {{Q3_1.0}}^{th} + { {{Q3_1.6}}\over 4 }[{{Q3_2.0}}^{th} - {{Q3_1.0}}^{th}]
+                $$
+                $$
+                {{Q3_1.0}}^{th} = {{Q3_1.3}} + ( {{Q3_1.1}} - {1\over2})*({ {{Q3_1.4}} - {{Q3_1.3}} \over {{Q3_1.2}} }) = {{Q3_1.5|round_float}}
+                $$
+                $$
+                {{Q3_2.0}}^{th} = {{Q3_2.3}} + ( {{Q3_2.1}} - {1\over2})*({ {{Q3_2.4}} - {{Q3_2.3}} \over {{Q3_2.2}} }) = {{Q3_2.5|round_float}}
+                $$
+                $$
+                Q3 = {{Q3_1.5|round_float}} + { {{Q3_1.6}}\over 4 }[{{Q3_2.5|round_float}} - {{Q3_1.5|round_float}}] = {{Q3}} 
+                $$
+                $$
+                IQR = Q3 - Q1 = {{IQR}}
+                $$
             </p>
             
                 
