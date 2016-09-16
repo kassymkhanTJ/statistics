@@ -65,40 +65,55 @@ def calculate_range(request):
         'm_i^2',
     ]
     
+    # MAIN CONTAINER OF ALL DATA
     data = []
     data_reversed = {}
+    # IN DATA
     input_data = request.POST['data'].strip().split(" ")
     n = len(input_data)
+    # FREQUENCY COUNT
     N = 0
     
     for i in xrange(n):
         a = input_data[i].split("-")
         data.append([])
+        # DATA RANGES
         data[i].append([float(a[0]),float(a[1])])
+        # DATA FREQUENCY
         data[i].append(float(a[2]))
+        # TOTAL FREQUENCY
         N += float(a[2])
 
     for i in xrange(n):
         if i==0:
+            # FI
             data[i].append(data[i][1])
         else:    
             data[i].append(data[i-1][2] + data[i][1])
+        # fi/N
         data[i].append(data[i][1]/float(N))
+        # FI/N
         data[i].append(data[i][2]/float(N))
+        # MI
         data[i].append(data[i][0][0] + (data[i][0][1] - data[i][0][0])/2)
+        # MI*fi
         data[i].append(data[i][5] * data[i][1])
+        # MI*fi**2
         data[i].append(data[i][5]**2 * data[i][1])
+        # MI**2
         data[i].append(data[i][5]**2)
-
-    data_range = {'start':data[0][0][0], 'end':data[-1][0][0]}
+    
+    # MAX fi
     max_fi = max([i[1] for i in data])
+    # MODE
     mode = []
 
-    
+    # FIND LM AND M
     for j,i in enumerate(data):
         if i[2] <= (float(N/2)) <= data[j+1][2]:
             LM = data[j+1][0][0]
             M = j + 1
+        # FIND MODE
         if 0<= abs(i[1] - max_fi) < 0.00001:
             mode.append(i[0])
 
@@ -121,6 +136,11 @@ def calculate_range(request):
             U11 = i[0][1]
             f11 = i[1]
             break
+        if j == (n-1):
+            j11 = Q1_1 - data[j-1][2]
+            L11 = i[0][0]
+            U11 = i[0][1]
+            f11 = i[1]
     for j, i in enumerate(data):
         if Q1_2 <= i[2]:
             if j == 0:
@@ -131,6 +151,11 @@ def calculate_range(request):
             U12 = i[0][1]
             f12 = i[1]
             break
+        if j == (n-1):
+            j12 = Q1_2 - data[j-1][2]
+            L12 = i[0][0]
+            U12 = i[0][1]
+            f12 = i[1]
     # Q3
     for j, i in enumerate(data):
         if Q3_1 <= i[2]:
@@ -142,6 +167,12 @@ def calculate_range(request):
             U31 = i[0][1]
             f31 = i[1]
             break
+        if j == (n-1):
+            j31 = Q3_1 - data[j-1][2]
+            L31 = i[0][0]
+            U31 = i[0][1]
+            f31 = i[1]
+
     
     for j, i in enumerate(data):
         if Q3_2 <= i[2]:
@@ -153,6 +184,11 @@ def calculate_range(request):
             U32 = i[0][1]
             f32 = i[1]
             break
+        if j == (n-1):
+            j32 = Q3_2 - data[j-1][2]
+            L32 = i[0][0]
+            U32 = i[0][1]
+            f32 = i[1]
     
     Q1_1_fin = L11 + (j11-1/2.0) *(U11-L11)/f11
     Q1_2_fin = L12 + (j12-1/2.0) *(U12-L12)/f12
@@ -193,7 +229,6 @@ def calculate_range(request):
     return render(request, 'result.html', {
         'data_type':data, 
         'coloumn_name':coloumn_name, 
-        'data_range':data_range,
         'N':N,
         'L_M':LM,
         'FM_1':FM_1,
