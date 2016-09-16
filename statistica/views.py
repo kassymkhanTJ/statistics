@@ -142,6 +142,7 @@ def calculate_range(request):
             U31 = i[0][1]
             f31 = i[1]
             break
+    
     for j, i in enumerate(data):
         if Q3_2 <= i[2]:
             if j == 0:
@@ -155,11 +156,11 @@ def calculate_range(request):
     
     Q1_1_fin = L11 + (j11-1/2.0) *(U11-L11)/f11
     Q1_2_fin = L12 + (j12-1/2.0) *(U12-L12)/f12
-    Q1 = Q1_1 + rest1/4*(Q1_2 - Q1_1)
+    Q1 = Q1_1_fin + rest1/4*(Q1_2_fin - Q1_1_fin)
 
     Q3_1_fin = L31 + (j31-1/2.0) *(U31-L31)/f31
     Q3_2_fin = L32 + (j32-1/2.0) *(U32-L32)/f32
-    Q3 = Q3_1 + rest2/4*(Q3_2 - Q3_1)
+    Q3 = Q3_1_fin + rest2/4*(Q3_2_fin - Q3_1_fin)
         
     
     mean = sum([i[6] for i in data])/N
