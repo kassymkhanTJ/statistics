@@ -3,18 +3,47 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-        
-    
-    
-    <h1>Hello</h1>
-    <form action="/calculate_range/" method="POST">
-        <div class="form-group">
-        <label for="usr">Input data seperated by '-' (range-data)</label>
-        <label for="usr">Ex: 120-130-5</label>
-        <input type="text" class="form-control" name="data">
-        </div>
-        {% csrf_token %}
-    </form>
+        <div class="container">
+
+                
+                
+            
+            
+            <h1>Statistics</h1>
+            <form action="/calculate_range/" method="POST">
+                <div class="form-group">
+                <h4>Input data seperated by '-' (range-data)</h4>
+                <hr>
+                <h2 style="margin-left:auto;margin-right:auto;">Example:</h2>
+                <table class="table" style="width:50%;margin-left:auto;margin-right:auto;">
+                    <th>Range</th>    
+                    
+                    <th>Frequency</th>
+                    <tr>
+                        <td>120-130</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>130-140</td>
+                        <td>15</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>140-150</td>
+                        <td>7</td>
+                    </tr>
+                    
+                </table>
+                <input type="text" class="form-control" value="120-130-3 130-140-15 140-150-7" aria-disabled="true" name="data" style="width:50%;margin-left:auto;margin-right:auto;">
+                <hr>
+                <label >Input</label>
+                
+
+                <input type="text" class="form-control" name="data">
+                </div>
+                {% csrf_token %}
+            </form>
+    </div>
     
     </body>
     

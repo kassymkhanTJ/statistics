@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 
 
-# Create your views here.
 def main(reqest):
     return render(reqest, 'index.html')
 
@@ -215,11 +214,6 @@ def calculate_range(request):
 
     for i in data:
         standart_deviation += (i[1]*((i[5]-mu)**2))
-        
-
-
-
-
         
     standart_deviation /= N
     variance = (sum_fimisquared - N*(x**2))/(N-1)
